@@ -2,18 +2,24 @@ require 'sinatra'
 require "sinatra/reloader" if development?
 require 'pp'
 
-set :port, 3010
+set :port, 3011
 
-songs = Array.new
+songs = Hash.new
 
 get '/' do
-	p songs
+	"Here I am showing Sinatras songs"
+	if songs.length >= 3
+		redirect '/enough'
+	else
+		p songs.to_s
+	end
 end
 
 post '/songs/new'	do
-	songs << "#{params[:song]}, #{params[:artist]}"
-	# redirect (songs.size >= 2 ? '/' : '/enough')
-	if songs.size >= 10
+	songs["#{params[:song]}"] = "#{params[:artist]}"
+redirect '/'
+
+	if songs.length >= 3
 		redirect '/enough'
 	else
 		redirect '/'
