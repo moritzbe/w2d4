@@ -1,0 +1,31 @@
+<html>
+  <body>
+    <p>
+      Here you can see the list of activists. There are currently <%= @visits %> activists subscribed. 
+    </p>
+
+
+    <h1> Here is the list of activists subscirbed </h1>
+    <% if @activists.any? %>
+      <ul>
+        <% @activists.each do |activ| %>
+          <li><%= activ %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <p>
+      Not yet subscribed? Sign-up!
+    </p>
+
+    <form action="/" method="post">
+      <input name="name" />
+      <input type="submit" />
+    </form>
+
+
+
+
+
+  </body>
+</html>
