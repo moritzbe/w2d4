@@ -1,0 +1,46 @@
+<html>
+  <body>
+    <h1>
+      Here you can see the list Ironhack Students and Alumnis. 
+    </h1>
+    <p>If you want to see social Ironhackers with dogs, click 
+      <a name="/only_dog_owners">here</a> 
+    </p>
+
+
+      <ul> <%@students.each do |student| %>
+
+          <h4><%=student.name %> <%=student.surnames %></h4 >
+          <li> is born on <%=student.birthday %> </li><li> has <%=student.number_of_dogs %> dogs</li><li> has a website <a href="<%=student.website %>"><%=student.website %></a></li><li> and programming experience? <%=student.first_programming_experience%> </li>
+          <%end%>
+      </ul>
+
+      <br>
+      <br>
+
+    <h3>
+      Here you can become an Ironhack member! Just sign up below ;) 
+    </h3>
+
+    <p>
+      Please sign-up here:     
+      <form action="/" method="post">
+        Enter Name 
+      <input name="name" /><br>
+        Enter Surnames 
+      <input name="surnames" /><br>
+        Enter Birthday
+      <input name="birthday" /><br>
+        Enter Website 
+      <input name="website" /><br>
+        Enter number of dogs
+      <input name="number_of_dogs" /><br>
+        Enter previous programming experience: Yes 
+      <input type="checkbox" name="first_programming_experience" value = "Yes"/> or No <input type="checkbox" name="first_programming_experience" value = "False"/><br>
+      <input type="submit" />
+    </form></a>
+    </p>
+
+
+  </body>
+</html>
