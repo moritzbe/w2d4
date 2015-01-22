@@ -19,7 +19,7 @@ enable :sessions
 
 
 class Student < ActiveRecord::Base
-	attr_reader(:students)
+	#attr_reader(:students)
 end
 
 
