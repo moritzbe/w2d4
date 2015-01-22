@@ -3,7 +3,7 @@ require 'active_record'
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
-  database: 'activerecord.sqlite'
+  database: 'students.sqlite'
 )
 
 class Student < ActiveRecord::Base

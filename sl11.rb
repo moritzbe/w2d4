@@ -1,5 +1,3 @@
-# - In “/“, you can see the list of users (showing their name) 
-#that have signed up and the number of users.
 # - Also in “/“, there’s a form (pointing to “/signup”) with 
 #which you can sign up yourself. After you sign up, your user 
 #id (and your
@@ -7,62 +5,78 @@
 #(hint: use an internal data structure were you can save ids 
 	#with their corresponding names and, important: ids should 
 	#be incremental and not repeat).
-# - There also a “/cats” page, linked from “/“, with five 
-#pictures of cats of your choice. Do your best!
 
 
-require 'rubygems'
-require 'active_record'
+
+
+
+
+
+
+
+
 require 'sinatra'
 require "sinatra/reloader" if development?
 require 'pp'
 
-ActiveRecord::Base.establish_connection(
-  adapter: 'sqlite3',
-  database: 'activerecord.sqlite'
-)
 
-class Student < ActiveRecord::Base
-  # we have name, surnames, birthday, website, number_of_dogs
-  # and first_programming_experience
+set :port, 3000
 
-  AGE_MINIMUM = 16
+enable :sessions
 
-  validates_presence_of :name, :surnames
-  validates_format_of :website, with: /\Ahttp:/
-  validates_numericality_of :number_of_dogs, greater_than: 0
-  validate :proper_age
+class Activists
+	attr_accessor :activists, :users, :user_id
+	def initialize
+	@activists = []
+	@users ||= 0
+	@user_id ||= 0	
+	end
 
-  private
+ 	def add_activist(activist)
+ 		@users += 1
+ 		@activists << activist
+ 	end
 
-  def proper_age
-    unless birthday < AGE_MINIMUM.years.ago
-      errors.add(:birthday, 'is too young')
-    end
-  end
+ 	def add_id
+ 		@user_id += 1
+ 	end
+
 end
 
-
-
+subscriber = Activists.new
 
 get('/') do
-	# visits += 1
- #  	@visits = visits
- #  	recorder = Songlist.new
-  	# if @songs.size >=3 
-  	# 	redirect('/enough2')
-  	# else
+	
+	@activists = subscriber.activists
+	@number_of_users = subscriber.users
+	@thing = session[:user_id]
+
   	erb(:sl11)
 end
 
+
+
+
+get('/signup') do
+	
+	@activists = subscriber.activists
+	@number_of_users = subscriber.users
+	subscriber.add_id
+	session[:user_id] = subscriber.user_id
+  	erb(:signup)
+end
+
+post('/signup') do
+	subscriber.add_activist(params[:name])
+	redirect('/')
+end
+
+
+
+
 get('/dogs') do
-	# visits += 1
- #  	@visits = visits
- #  	recorder = Songlist.new
-  	# if @songs.size >=3 
-  	# 	redirect('/enough2')
-  	# else
-  	erb(:sl11)
+
+   	erb(:dogs)
 end
 
 
