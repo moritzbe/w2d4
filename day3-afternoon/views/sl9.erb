@@ -1,0 +1,42 @@
+<!--
+# * Instead of saving the songs in an array, we will create a SongList class 
+#that has one “add_song” method, which will take an author and a
+# name as parameters, and add the information to the song list.
+
+# Also, we will have a couple more features:
+# * We will have a dynamic route, like "/artists/:artist" that, for the 
+#{}"artist" parameter, prints all the songs that we have from him/her
+# in our songs list.
+# * We will have a "/search" route that, with a "term" parameter, prints all 
+#the artists and the songs which match the "term" parameter.
+-->
+
+<html>
+  <body>
+    <p>
+      Hi there! You have visited this place <%= @visits %> times.
+    </p>
+
+    <p>
+      Now lets get serious: Enter songtitles and author below:
+    </p>
+
+    <form action="/" method="post">
+      <input name="title" />
+       <input name="author" />
+      <input type="submit" />
+    </form>
+
+
+
+    <% if @songs.any? %>
+      <ul>
+        <% @songs.each do |song| %>
+          <li><%= song[0] %> by <%= song[1]%></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+
+  </body>
+</html>

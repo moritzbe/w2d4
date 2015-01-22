@@ -1,0 +1,52 @@
+require 'sinatra'
+require "sinatra/reloader" if development?
+require 'pp'
+
+set :port, 3000
+
+songs = Hash.new
+
+visits ||= 0
+errands ||= []
+
+
+
+get '/' do
+	"Here I am showing Sinatras songs"
+	if songs.length >= 3
+		redirect '/enough'
+	else
+		p songs.to_s
+	end
+
+  	visits += 1
+  	@visits = visits
+  	@errands = errands
+  	erb :today
+end
+
+get '/hello/:name' do
+  visits += 1
+  @name = params[:name]
+  erb :name
+end
+
+post '/songs/new'	do
+	#songs["#{params[:song]}"] = "#{params[:artist]}"
+	songs = []
+	songs << params[:name]
+	if songs.length >= 3
+		redirect('/enough')
+	else
+		redirect('/')
+	end
+end
+
+get '/enough' do
+	"Enough"
+end
+
+post '/save_errand' do
+  errands << params[:name]
+  redirect('/')
+end
